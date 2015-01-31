@@ -1,0 +1,39 @@
+#!/usr/bin/env ruby
+
+require 'readline'
+require_relative '../lib/dijkstra'
+require_relative '../lib/parser'
+
+parser = Parser.new
+graph = parser.createGraph(File.join(File.dirname(__FILE__), '../LondonUnderground.txt'))
+dijkstra = Dijkstra.new(graph)
+
+def to_station(key)
+  key.split('<').first.gsub('_',' ')
+end
+
+def to_key(station)
+  station.gsub(' ','_')
+end
+
+def select_station(graph, station)
+  graph.vertices.keys.select { |x| x[/^#{to_key(station)}/] }.first
+end
+
+begin
+  while stations = Readline.readline('> ', true)
+    start, finish = stations.split(',')
+    stations = graph.vertices.keys.map { |key| to_station(key) }
+
+    if stations.include? start and stations.include? finish
+      start = select_station(graph, start)
+      finish = select_station(graph, finish)
+      path = dijkstra.shortest_path(start, finish)
+      puts path.map { |element| to_station(element) }.uniq.join(',')
+    else
+      puts 'Unknown stations'
+    end
+  end
+rescue SystemExit, Interrupt
+  puts "\nexiting..."
+end

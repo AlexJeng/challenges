@@ -1,0 +1,10 @@
+#!/usr/bin/env ruby
+
+require 'readline'
+require_relative '../lib/editor'
+
+editor = GraphicalEditor::Editor.new
+
+while cmd = Readline.readline('> ', true)
+  editor.execute(cmd)
+end

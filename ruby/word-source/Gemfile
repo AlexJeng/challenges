@@ -1,0 +1,11 @@
+source "https://rubygems.org"
+ruby "2.0.0"
+
+gem "twitter"
+
+group :development, :test do
+  gem "guard-rspec"
+  gem "rspec"
+  gem "vcr"
+  gem "webmock", "~> 1.11.0"  # VCR is known to work with WebMock >= 1.8.0, < 1.12
+end

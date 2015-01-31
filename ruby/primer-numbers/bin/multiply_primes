@@ -1,0 +1,7 @@
+#!/usr/bin/env ruby
+
+require File.expand_path("../../lib/prime_table", __FILE__)
+
+x = ARGV[0] || 10
+y = ARGV[1] || 10
+puts PrimeTable.new(x, y).call

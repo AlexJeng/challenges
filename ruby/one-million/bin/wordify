@@ -1,0 +1,9 @@
+#!/usr/bin/env ruby
+
+require File.expand_path('../../lib/wordify', __FILE__)
+
+wordify = Wordify.new
+
+(1..1_000_000).each do |number|
+  puts wordify.call(number)
+end
